@@ -9,7 +9,7 @@ source("fn-ggmanh_vec.R")
 
 
 ## Download UK Biobank height GWAS in European population (Watanabe et al. 2019)
-system("wget -P https://atlas.ctglab.nl/ukb2_sumstats/f.50.0.0_res.EUR.sumstats.MACfilt.txt.gz")
+system("wget https://atlas.ctglab.nl/ukb2_sumstats/f.50.0.0_res.EUR.sumstats.MACfilt.txt.gz")
 
 ## Read summary stats
 gwas <- fread("f.50.0.0_res.EUR.sumstats.MACfilt.txt.gz", data.table = FALSE)

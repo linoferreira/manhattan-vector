@@ -8,12 +8,12 @@ The key idea is to use software for processing and plotting [geographic features
 
 The function to generate these plots is provided in the `fn-ggmanh_vec.R` script and is named `ggmanh_vec`. Please see the beginning of this file for a description of the different options available.
 
-To illustrate how to use the function, I provide a simple reproducible example in the script `make-manhattan-vec.R`. I start by downloading summary statistics of a GWAS of standing height in European-ancestry samples in the UK Biobank which includes 12 million variants from [Watanabe et al. (2019)](https://doi.org/10.1038/s41588-019-0481-0) (the article's preprint is available on [bioRxiv](https://doi.org/10.1101/500090) and the results can be downloaded from the [GWAS Atlas](https://atlas.ctglab.nl/)). I then call `ggman_vec` to make a basic Manhattan plot and export it to PDF format with `ggplot2::ggsave`, obtaining the file `ukb-height-gwas.pdf` whose size is **751kB**.
+To illustrate how to use the function, I provide a simple reproducible example in the script `make-manhattan-vec.R`. I start by downloading summary statistics of a GWAS of standing height in European-ancestry samples in the UK Biobank which includes 10.6 million variants from [Watanabe et al. (2019)](https://doi.org/10.1038/s41588-019-0481-0) (the article's preprint is available on [bioRxiv](https://doi.org/10.1101/500090) and the results can be downloaded from the [GWAS Atlas](https://atlas.ctglab.nl/)). I then call `ggman_vec` to make a basic Manhattan plot and export it to PDF format with `ggplot2::ggsave`, obtaining the file `ukb-height-gwas.pdf` whose size is **773kB**.
 
 
 ## Runtime
 
-Making the example Manhattan plot mentioned above takes approximately 24min using four Intel Skylake 2.6GHz processors, each with 16GB of RAM. A simplified version in which we only plot points with p-value lower than or equal to 0.01 (approximately 1.2 million points) takes only 3min12s with the same resources and produces the file `ukb-height-gwas-pv2.pdf`. For comparison, a standard rasterised PNG plot takes 2min14s to make with a slightly modified (and not parallelised) version of Holtz Yan's original function.
+Making the example Manhattan plot mentioned above takes approximately 33min using four Intel Skylake 2.4GHz processors, each with 16GB of RAM. A simplified version in which we only plot points with p-value lower than or equal to 0.01 (approximately 1.2 million points) takes only 3min55s with the same resources and produces the file `ukb-height-gwas-pv2.pdf`.
 
 
 ## Dependencies
@@ -28,4 +28,4 @@ The following R packages are required:
 
 In addition, the `sf` R package requires that the [GDAL](https://gdal.org/) library be available on the system.
 
-This code has been tested in R 3.6.2 (on CentOS 7.8.2003 with GDAL 3.0.2 installed) with `doParallel` 1.0.16, `dplyr` 1.0.6, `foreach` 1.5.1, `ggplot2` 3.3.3 and `sf` 1.0-0.
+This code has been tested in R 4.2.1 (on CentOS 7.9.2009 with GDAL 3.5.0 installed) with `doParallel` 1.0.17, `dplyr` 1.0.9, `foreach` 1.5.2, `ggplot2` 3.4.2 and `sf` 1.0-7.

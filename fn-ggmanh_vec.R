@@ -67,11 +67,11 @@ ggmanh_vec <- function(df,
         mutate(tot = cumsum(as.numeric(chr_len)) - chr_len + gap_add) %>%
         select(-chr_len) %>%  
         ## Add this info to the initial dataset
-        left_join(df, ., by = .data[[chr]]) %>%
+        left_join(df, ., by = chr) %>%
         ## Add a cumulative position of each SNP
         arrange(.data[[chr]], POS_0) %>%
         mutate(POScum = POS_0 + tot) %>%
-        select(.data[[chr]], POScum, .data[[log_pv]])
+        select(all_of(chr), "POScum", all_of(log_pv))
 
     ## Rescale SNP positions so plot has desired H/W ratio
     maxpos <- max(df$POScum)
@@ -207,7 +207,7 @@ ggmanh_vec <- function(df,
         geom_line(data = data.frame(x = c(0 - 0.01 * df$POScum[nrow(df)],
                                           df$POScum[nrow(df)] + 0.01 * df$POScum[nrow(df)]),
                                     y = -log10(5e-8)),
-            aes(x, y), size = 0.4, linetype = sig_type, colour = sig_col) +
+            aes(x, y), linewidth = 0.4, linetype = sig_type, colour = sig_col) +
         coord_sf(xlim = c(0, df$POScum[nrow(df)])) +
         theme_bw()
 

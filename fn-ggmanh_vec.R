@@ -52,7 +52,13 @@ ggmanh_vec <- function(df,
                        axis_title_sz = 7,
                        axis_text_sz = 6,
                        ncores = 1) {
+
+    ## Check that df object is a data.frame
+    if (!is(df, "data.frame")) {
+        stop("Input object df is not a data.frame.")
+    }
     
+
     ## Make the first SNP of each chromosome have position 0
     df <- df %>%
         group_by(.data[[chr]]) %>%
@@ -107,7 +113,7 @@ ggmanh_vec <- function(df,
 
             odd_chr[[o]] <- df %>%
                 filter(CHR == o) %>%
-                slice(st[[o]][1]:en[[o]][1]) %>%
+                dplyr::slice(st[[o]][1]:en[[o]][1]) %>%
                 sf::st_as_sf(coords = c(2, 3)) %>%
                 sf::st_buffer(dist = buffer_dist) %>%
                 sf::st_union()
@@ -115,7 +121,7 @@ ggmanh_vec <- function(df,
                 for (s in 2:length(st[[o]])) {
                     odd_chr_seg[[o]] <- df %>%
                         filter(CHR == o) %>%
-                        slice(st[[o]][s]:en[[o]][s]) %>%
+                        dplyr::slice(st[[o]][s]:en[[o]][s]) %>%
                         sf::st_as_sf(coords = c(2, 3)) %>%
                         sf::st_buffer(dist = buffer_dist) %>%
                         sf::st_union()
@@ -159,7 +165,7 @@ ggmanh_vec <- function(df,
 
             even_chr[[e]] <- df %>%
                 filter(CHR == e) %>%
-                slice(st[[e]][1]:en[[e]][1]) %>%
+                dplyr::slice(st[[e]][1]:en[[e]][1]) %>%
                 sf::st_as_sf(coords = c(2, 3)) %>%
                 sf::st_buffer(dist = buffer_dist) %>%
                 sf::st_union()
@@ -167,7 +173,7 @@ ggmanh_vec <- function(df,
                 for (s in 2:length(st[[e]])) {
                     even_chr_seg[[e]] <- df %>%
                         filter(CHR == e) %>%
-                        slice(st[[e]][s]:en[[e]][s]) %>%
+                        dplyr::slice(st[[e]][s]:en[[e]][s]) %>%
                         sf::st_as_sf(coords = c(2, 3)) %>%
                         sf::st_buffer(dist = buffer_dist) %>%
                         sf::st_union()
